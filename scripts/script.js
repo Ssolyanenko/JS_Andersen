@@ -9,6 +9,7 @@ function numberRegex() {
         console.log('Некорректный ввод!');
     }
 }
+
 numberRegex();
 
 function getNum() {
@@ -31,4 +32,5 @@ function getNum() {
         getNum();
     }
 }
+
 getNum();
