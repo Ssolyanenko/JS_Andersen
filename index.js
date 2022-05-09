@@ -4,7 +4,7 @@ const OBJECT = {
   boolean: true,
 };
 
-function customDeepClone(obj) {
+function makeObjectDeepCopy(obj) {
   const deepCloneObj = {};
 
   if (!obj) {
@@ -19,20 +19,20 @@ function customDeepClone(obj) {
     const copyArray = [];
 
     obj.forEach((e) => {
-      copyArray.push(customDeepClone(e));
+      copyArray.push(makeObjectDeepCopy(e));
     });
 
     return copyArray;
   }
 
   Object.keys(obj).forEach((key) => {
-    deepCloneObj[key] = customDeepClone(obj[key]);
+    deepCloneObj[key] = makeObjectDeepCopy(obj[key]);
   });
 
   return deepCloneObj;
 }
 
-customDeepClone(OBJECT);
+makeObjectDeepCopy(OBJECT);
 
 function selectFromInterval(arr, firstInterval, secondInterval) {
   const result = [];
