@@ -53,7 +53,7 @@ function selectFromInterval(arr, firstInterval, secondInterval) {
 selectFromInterval([1, 3, 5], 5, 2);
 
 const MY_ITERABLE = {
-  from: 1,
+  from: '1',
   to: 4,
 };
 
@@ -69,7 +69,7 @@ MY_ITERABLE[Symbol.iterator] = function () {
     !last;
 
   if (isNotValid) {
-    console.log("Ошибка!");
+    throw new Error('Ошибка!')
   }
 
   return {
