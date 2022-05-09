@@ -81,7 +81,6 @@ MY_ITERABLE[Symbol.iterator] = function () {
           value: current++,
         };
       } else {
-
         return {
           done: true,
         };
