@@ -1,19 +1,38 @@
 const OBJECT = {
   foo: "bar",
   array: [1, 2, 3],
+  boolean: true,
 };
 
-function instanceCopy(obj) {
-  const copy = new obj.constructor();
-  const keys = Object.keys(obj);
+function customDeepClone(obj) {
+  const deepCloneObj = {};
 
-  keys.forEach((key) => {
-    copy[key] = obj[key];
+  if (!obj) {
+    return obj;
+  }
+
+  if (typeof obj !== "object") {
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    const copyArray = [];
+
+    obj.forEach((e) => {
+      copyArray.push(customDeepClone(e));
+    });
+
+    return copyArray;
+  }
+
+  Object.keys(obj).forEach((key) => {
+    deepCloneObj[key] = customDeepClone(obj[key]);
   });
-  console.log(copy);
+
+  return deepCloneObj;
 }
 
-instanceCopy(OBJECT);
+customDeepClone(OBJECT);
 
 function selectFromInterval(arr, firstInterval, secondInterval) {
   const result = [];
@@ -27,34 +46,51 @@ function selectFromInterval(arr, firstInterval, secondInterval) {
       throw new Error("невалидное число!");
     }
   }
+
   return result;
 }
 
-console.log(selectFromInterval([1, 3, 5], 5, 2));
+selectFromInterval([1, 3, 5], 5, 2);
 
 const MY_ITERABLE = {
   from: 1,
   to: 4,
 };
 
-function iterableObj(iterObj) {
-  const iterable = Object.values(iterObj);
-  const iterableZero = iterable[0];
-  const iterableOne = iterable[1];
-  const isValid =
-    typeof iterableZero !== "number" || typeof iterableOne !== "number";
+MY_ITERABLE[Symbol.iterator] = function () {
+  let current = this.from;
+  let last = this.to;
 
-  if (isValid) {
-    throw new Error("Ошибка!");
+  const isNotValid =
+    typeof current !== "number" ||
+    typeof last !== "number" ||
+    current > last ||
+    !current ||
+    !last;
+
+  if (isNotValid) {
+    console.log("Ошибка!");
   }
 
-  for (let i = iterable[0]; i <= iterable[1]; i++) {
-    console.log(i);
-  }
+  return {
+    next() {
+      if (current <= last) {
+
+        return {
+          done: false,
+          value: current++,
+        };
+      } else {
+
+        return {
+          done: true,
+        };
+      }
+    },
+  };
+};
+
+for (let num of MY_ITERABLE) {
+  console.log(num);
 }
-
-iterableObj(MY_ITERABLE);
-
-
-
 
