@@ -23,6 +23,7 @@ class Calculator {
       typeof firstNum === "number"
         ? firstNum
         : console.log(new Error("Ошибка!"));
+    
     this.secondNum =
       typeof secondNum === "number"
         ? secondNum
