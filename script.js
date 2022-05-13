@@ -19,25 +19,23 @@ const concatStrings = (str2, separator = "") => {
 
 class Calculator {
   constructor(firstNum, secondNum) {
-    this.firstNum =
-      typeof firstNum === "number"
-        ? firstNum
-        : console.log(new Error("Ошибка!"));
-    
-    this.secondNum =
-      typeof secondNum === "number"
-        ? secondNum
-        : console.log(new Error("Ошибка!"));
+    this.firstNum = Number.isSafeInteger(firstNum)
+      ? firstNum
+      : console.log(new Error("Ошибка!"));
+
+    this.secondNum = Number.isSafeInteger(secondNum)
+      ? secondNum
+      : console.log(new Error("Ошибка!"));
   }
 
   setX = (num) => {
-    return typeof num === "number"
+    return Number.isSafeInteger(num)
       ? (this.firstNum = num)
       : console.log(new Error("Ошибка!"));
   };
 
   setY = (num) => {
-    return typeof num === "number"
+    return Number.isSafeInteger(num)
       ? (this.secondNum = num)
       : console.log(new Error("Ошибка!"));
   };
