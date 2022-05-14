@@ -60,15 +60,3 @@ class Calculator {
     );
   };
 }
-
-// const calculator = new Calculator(12, 3)
-// // calculator.logSum()
-// // calculator.logDiv()
-// // calculator.setX(15)
-// // calculator.logDiv()
-// // const logCalculatorDiv = calculator.logDiv
-// // logCalculatorDiv()
-// // calculator.setY(444n)
-// //
-// // // const logCalculatorDiv = calculator.logDiv
-// // // logCalculatorDiv()
