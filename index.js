@@ -1,43 +1,64 @@
+class Node {
+  constructor(data, prev) {
+    this.data = data;
+    this.prev = prev;
+  }
+}
 
 class Stack {
-  constructor(maxSize) {
-    this.items = [];
-    if (maxSize !== null) {
-      this.maxSize = maxSize;
-    } else {
-      this.maxSize = 10;
-    }
-  }
-
-  push(element) {
-    if (this.items.length === this.maxSize) {
+  constructor(maxSize = 10) {
+    if (typeof maxSize !== "number" || maxSize < 0) {
       throw new Error("Ошибка!");
     } else {
-      this.items.push(element);
+      this.maxSize = maxSize;
     }
+
+    this.curentSize = 0;
+    this.top = null;
+  }
+
+  push(elem) {
+    if (this.curentSize === this.maxSize) {
+      throw new Error("Ошибка!");
+    }
+
+    const newNode = new Node(elem);
+
+    newNode.prev = this.top = null;
+    this.curentSize++;
+    this.top = newNode;
   }
 
   pop() {
-    if (this.items.length === 0) {
-      throw new Error("Ошибка!");
-    } else {
-      return this.items.pop();
+    if (!this.curentSize === 0) {
+      throw new Error("Oшибка!");
     }
-  }
 
+    const deleted = this.top;
+
+    this.top = this.top.prev || null;
+    this.curentSize--;
+
+    return deleted.data;
+  }
   peek() {
-    if (this.items.length === 0) {
-      return null;
-    } else {
-      return this.items[this.items.length - 1];
-    }
+    return this.curentSize === 0 ? null : this.top.data;
+  }
+  isEmpty() {
+    return this.curentSize === 0;
   }
 
-  isEmpty() {
-    return this.items.length === 0;
-  }
   toArray() {
-    return this.items;
+    const arr = [];
+
+    let current = this.top;
+
+    while (current) {
+      arr.unshift(current.data);
+      current = current.prev;
+    }
+
+    return arr;
   }
 
   static fromIterable(iterable) {
@@ -61,4 +82,3 @@ class Stack {
   }
 }
 
-module.exports = { Stack };
